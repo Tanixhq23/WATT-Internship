@@ -36,7 +36,8 @@
       color: #555;
     }
     .form-group input[type="text"],
-    .form-group input[type="password"] {
+    .form-group input[type="password"],
+    .form-group input[type="email"] {
       width: calc(100% - 20px);
       padding: 10px;
       border: 1px solid #ddd;
@@ -57,6 +58,20 @@
     .register-button:hover {
       background-color: #218838;
     }
+    .otp-button {
+      background-color: #007bff;
+      color: white;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      margin-top: 8px;
+      transition: background-color 0.3s ease;
+    }
+    .otp-button:hover {
+      background-color: #0056b3;
+    }
     #error-message {
       color: red;
       margin-top: 15px;
@@ -73,6 +88,15 @@
         <input type="text" id="username" name="username" required />
       </div>
       <div class="form-group">
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" name="email" required />
+        <button type="button" class="otp-button" onclick="sendOTP()">Send OTP</button>
+      </div>
+      <div class="form-group">
+        <label for="otp">Enter OTP:</label>
+        <input type="text" id="otp" name="otp" required />
+      </div>
+      <div class="form-group">
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required />
       </div>
@@ -83,17 +107,34 @@
   </div>
 
   <script>
-      const urlParams = new URLSearchParams(window.location.search);
-      const errorMessage = urlParams.get('error');
-      const errorDiv = document.getElementById('error-message');
+    const urlParams = new URLSearchParams(window.location.search);
+    const errorMessage = urlParams.get('error');
+    const errorDiv = document.getElementById('error-message');
 
-      if (errorMessage === 'exists') {
-          errorDiv.textContent = 'Username already taken. Please choose another.';
-      } else if (errorMessage === 'server') {
-          errorDiv.textContent = 'A server error occurred during registration. Please try again.';
-      } else {
-        errorDiv.textContent = '';
+    if (errorMessage === 'exists') {
+      errorDiv.textContent = 'Username already taken. Please choose another.';
+    } else if (errorMessage === 'server') {
+      errorDiv.textContent = 'A server error occurred during registration. Please try again.';
+    } else {
+      errorDiv.textContent = '';
+    }
+
+    function sendOTP() {
+      const email = document.getElementById("email").value;
+      if (!email) {
+        alert("Please enter a valid email address.");
+        return;
       }
+
+      fetch("/send-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email })
+      })
+      .then(response => response.json())
+      .then(data => alert(data.message))
+      .catch(error => console.error("Error sending OTP:", error));
+    }
   </script>
 </body>
 </html>
