@@ -9,7 +9,7 @@ const User = require("./models/user.js");
 // 📌 App config
 const app = express();
 const PORT = 3000;
-const dbURI = "mongodb://127.0.0.1:27017/auth-db";
+const dbURI = "mongodb+srv://tanishqlokhande2005:Tanishq343116@cluster0.katozxj.mongodb.net/auth-db?retryWrites=true&w=majority&appName=Cluster0";
 
 // 📌 MongoDB connection
 mongoose
