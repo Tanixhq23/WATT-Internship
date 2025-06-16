@@ -30,3 +30,15 @@ app.get("/api/devices", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`🚀 Devices API running at http://localhost:${PORT}/api/devices`);
 });
+
+const dummyDevices = [
+  {
+    deviceId: "DVC001",
+    name: "XII-A",
+    deviceActive: true,
+  },
+];
+
+Device.insertMany(dummyDevices)
+  .then(() => console.log("✅ Dummy device inserted"))
+  .catch((err) => console.error("❌ Insert error:", err));
