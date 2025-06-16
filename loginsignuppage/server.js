@@ -4,7 +4,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const nodemailer = require("nodemailer");
-const User = require("./models/User.js");
+const User = require("./models/user.js");
 
 // 📌 App config
 const app = express();
@@ -87,9 +87,9 @@ app.post("/verify-otp", (req, res) => {
   }
 });
 
-// 📌 User Registration
+// ✅ 📌 User Registration — now includes name, designation, organization
 app.post("/register", async (req, res) => {
-  const { username, email, password } = req.body;
+  const { name, designation, organization, username, email, password } = req.body;
 
   try {
     let user = await User.findOne({ username });
@@ -101,7 +101,15 @@ app.post("/register", async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    user = new User({ username, password: hashedPassword, email });
+    user = new User({
+      name,
+      designation,
+      organization,
+      username,
+      email,
+      password: hashedPassword
+    });
+
     await user.save();
 
     console.log("User registered successfully:", username);
@@ -171,5 +179,5 @@ app.use((req, res) => {
 
 // 📌 Start server
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server running at http://localhost:${PORT}`);
 });
