@@ -1,4 +1,5 @@
 // 📌 Import modules
+require("dotenv").config(); // ✅ Load environment variables
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
@@ -9,7 +10,9 @@ const User = require("./models/user.js");
 // 📌 App config
 const app = express();
 const PORT = 3000;
-const dbURI = "mongodb+srv://tanishqlokhande2005:Tanishq343116@cluster0.katozxj.mongodb.net/auth-db?retryWrites=true&w=majority&appName=Cluster0";
+
+// ✅ Use environment variable for MongoDB URI
+const dbURI = process.env.MONGO_URI;
 
 // 📌 MongoDB connection
 mongoose
@@ -89,7 +92,8 @@ app.post("/verify-otp", (req, res) => {
 
 // ✅ 📌 User Registration — now includes name, designation, organization
 app.post("/register", async (req, res) => {
-  const { name, designation, organization, username, email, password } = req.body;
+  const { name, designation, organization, username, email, password } =
+    req.body;
 
   try {
     let user = await User.findOne({ username });
@@ -107,7 +111,7 @@ app.post("/register", async (req, res) => {
       organization,
       username,
       email,
-      password: hashedPassword
+      password: hashedPassword,
     });
 
     await user.save();
