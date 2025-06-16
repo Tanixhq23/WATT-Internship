@@ -15,5 +15,14 @@
     "mongodb": "^6.17.0",
     "mongoose": "^8.15.1",
     "nodemailer": "^7.0.3"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tanixhq23/WATT-Internship.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Tanixhq23/WATT-Internship/issues"
+  },
+  "homepage": "https://github.com/Tanixhq23/WATT-Internship#readme"
 }

@@ -1,5 +1,5 @@
 // 📌 Import modules
-require("dotenv").config(); // ✅ Load environment variables
+require('dotenv').config({ path: '../.env' }); // adjust path if needed
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");

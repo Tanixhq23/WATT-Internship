@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const DeviceSchema = new mongoose.Schema({
+const AttendanceSchema = new mongoose.Schema({
   cardId: { type: String, required: true },
   time: { type: Date, required: true }, // use Date type for timestamps
   deviceActive: { type: Boolean, default: true },
@@ -10,4 +10,4 @@ const DeviceSchema = new mongoose.Schema({
   deviceId: { type: String, required: true },
 });
 
-module.exports = mongoose.model("Device", DeviceSchema);
+module.exports = mongoose.model("Attendance", AttendanceSchema);
